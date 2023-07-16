@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+ 
 [CustomEditor(typeof(GridLevel))]
 public class GridLevelEditor : Editor
 {
@@ -237,21 +237,26 @@ public class GridLevelEditor : Editor
 
         EditorGUILayout.BeginVertical(verticalBoxStyle);
 
-        string selectedObjectText = level.avaibleObjects[level.selectedIndex].objectName == "" ? level.avaibleObjects[level.selectedIndex].prefab.name : level.avaibleObjects[level.selectedIndex].objectName;
-        GUILayout.Label($"Выбранный элемент: {selectedObjectText}");
-
-        GUILayout.Space(10);
-
-        GUILayout.Label("Выбор элемента"); 
-        for (int i = 0; i < level.avaibleObjects.Count; i++)
+        if (level.avaibleObjects.Count != 0 && level.showChosenElement)
         {
-            string buttonText = level.avaibleObjects[i].objectName == "" ? level.avaibleObjects[i].prefab.name : level.avaibleObjects[i].objectName;
-            
-            if (GUILayout.Button(buttonText))
+            string selectedObjectText = level.avaibleObjects[level.selectedIndex].objectName == "" ? level.avaibleObjects[level.selectedIndex].prefab.name : level.avaibleObjects[level.selectedIndex].objectName;
+            GUILayout.Label($"Выбранный элемент: {selectedObjectText}");
+        
+
+            GUILayout.Space(10);
+
+            GUILayout.Label("Выбор элемента"); 
+            for (int i = 0; i < level.avaibleObjects.Count; i++)
             {
-                level.selectedIndex = i;
+                string buttonText = level.avaibleObjects[i].objectName == "" ? level.avaibleObjects[i].prefab.name : level.avaibleObjects[i].objectName;
+                
+                if (GUILayout.Button(buttonText))
+                {
+                    level.selectedIndex = i;
+                }
             }
         }
+        
         EditorGUILayout.EndVertical();
 
         if (GUILayout.Button("Clear Grid"))

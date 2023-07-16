@@ -9,6 +9,7 @@ public class GridLevel : MonoBehaviour
     public float gridPlaneHeight = 0;
     public int numberOfHexesOnSide = 10;
     public float hexSize = 1f;
+    public bool showChosenElement = false;
     public List<GridObject> avaibleObjects = new List<GridObject>();
     [HideInInspector]
     public int selectedIndex = 0;
