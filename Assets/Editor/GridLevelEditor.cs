@@ -146,59 +146,70 @@ public class GridLevelEditor : Editor
 
     void DrawGrid()
     {
-        float xShift = 0.5f * level.gridSize.x;
-        float yShift = 0.5f * level.gridSize.y;
-        Vector2Int maxIndiciesDrawn = new Vector2Int(level.maxCoordinateLinesDrawn / 2, level.maxCoordinateLinesDrawn / 2);
-
-        for (int i = 0; i < level.maxCoordinateLinesDrawn / 2; i++)
+        for (int q = -level.numberOfHexesOnSide + 1; q <= level.numberOfHexesOnSide - 1; q++)
         {
-            Vector3 positiveCoordinate = level.IndiciesToWorldPoint(i, i) + new Vector3(xShift, yShift, 0);
-            Vector3 negativeCoordinate = level.IndiciesToWorldPoint(-i, -i) + new Vector3(xShift, yShift, 0);
-
-            Handles.color = level.gridLinesColor;
-            Handles.DrawLine(new Vector3(-maxIndiciesDrawn.x + xShift, positiveCoordinate.y, 0), new Vector3(maxIndiciesDrawn.x + xShift, positiveCoordinate.y, 0));
-            Handles.DrawLine(new Vector3(positiveCoordinate.x, -maxIndiciesDrawn.y + yShift, 0), new Vector3(positiveCoordinate.x, maxIndiciesDrawn.y + yShift, 0));
-            Handles.DrawLine(new Vector3(-maxIndiciesDrawn.x + xShift, negativeCoordinate.y, 0), new Vector3(maxIndiciesDrawn.x + xShift, negativeCoordinate.y, 0));
-            Handles.DrawLine(new Vector3(negativeCoordinate.x, -maxIndiciesDrawn.y + yShift, 0), new Vector3(negativeCoordinate.x, maxIndiciesDrawn.y + yShift, 0));
+            for (int r = -level.numberOfHexesOnSide + 1; r <= level.numberOfHexesOnSide - 1; r++)
+            {
+                if (Mathf.Abs(-q - r) <= level.numberOfHexesOnSide - 1)
+                {
+                    DrawHexagon(q, r, level.gridLinesColor);
+                }
+            }
         }
 
-        if (selectionInfo.isSelectionActive)
-        {
-            Vector3[] rectangleCoordinates = FindRectangleWorldVerts(selectionInfo.selectionStartIndicies, selectionInfo.selectionEndIndicies);
-
-            Handles.DrawSolidRectangleWithOutline(rectangleCoordinates, level.mouseOverFillColor, level.mouseOverOutlineColor);
-        }
-        else if (mouseOverGridTile.x <= maxIndiciesDrawn.x && mouseOverGridTile.y <= maxIndiciesDrawn.y
-            && mouseOverGridTile.x >= -maxIndiciesDrawn.x && mouseOverGridTile.y >= -maxIndiciesDrawn.y)
-        {
-            Vector3[] rectangleCoordinates = FindRectangleWorldVerts(mouseOverGridTile, mouseOverGridTile);
-
-            Handles.DrawSolidRectangleWithOutline(rectangleCoordinates, level.mouseOverFillColor, level.mouseOverOutlineColor);
-        }
+        DrawSelection();
 
         needsRepaint = false;
     }
 
-    Vector3[] FindRectangleWorldVerts(Vector2Int startIndicies, Vector2Int endIndicies)
+    void DrawSelection()
     {
-        float xShift = 0.5f * level.gridSize.x;
-        float yShift = 0.5f * level.gridSize.y;
-
-        Vector3 startWorldPoint = level.IndiciesToWorldPoint(startIndicies);
-        Vector3 endWorldPoint = level.IndiciesToWorldPoint(endIndicies);
-
-        Vector3 leftUp = new Vector3(Mathf.Min(startWorldPoint.x, endWorldPoint.x), Mathf.Max(startWorldPoint.y, endWorldPoint.y), startWorldPoint.z);
-        Vector3 rightDown = new Vector3(Mathf.Max(startWorldPoint.x, endWorldPoint.x), Mathf.Min(startWorldPoint.y, endWorldPoint.y), startWorldPoint.z);
-        Vector3 rightUp = new Vector3(Mathf.Max(startWorldPoint.x, endWorldPoint.x), Mathf.Max(startWorldPoint.y, endWorldPoint.y), startWorldPoint.z);
-        Vector3 leftDown = new Vector3(Mathf.Min(startWorldPoint.x, endWorldPoint.x), Mathf.Min(startWorldPoint.y, endWorldPoint.y), startWorldPoint.z);
-
-        return new Vector3[]
+        if (!selectionInfo.isSelectionActive)
         {
-            rightUp + xShift*Vector3.right + yShift*Vector3.up,
-            rightDown + xShift*Vector3.right + yShift*Vector3.down,
-            leftDown + xShift*Vector3.left + yShift*Vector3.down,
-            leftUp + xShift*Vector3.left + yShift*Vector3.up,
-        };
+            DrawHexagon(mouseOverGridTile, level.mouseOverOutlineColor);
+            return;
+        }
+
+        int minQ = Mathf.Min(selectionInfo.selectionStartIndicies.x, selectionInfo.selectionEndIndicies.x);
+        int maxQ = Mathf.Max(selectionInfo.selectionStartIndicies.x, selectionInfo.selectionEndIndicies.x);
+        int minR = Mathf.Min(selectionInfo.selectionStartIndicies.y, selectionInfo.selectionEndIndicies.y);
+        int maxR = Mathf.Max(selectionInfo.selectionStartIndicies.y, selectionInfo.selectionEndIndicies.y);
+
+        for (int q = minQ; q <= maxQ; q++)
+        {
+            for (int r = minR; r <= maxR; r++)
+            {
+                DrawHexagon(q, r, level.mouseOverOutlineColor);
+            }
+        }        
+    }
+
+    void DrawHexagon(int q, int r, Color linesColor)
+    {
+        DrawHexagon(new Vector2Int(q, r), linesColor);
+    }
+
+    void DrawHexagon(Vector2Int indicies, Color linesColor)
+    {
+        Vector3 center = level.IndiciesToWorldPoint(indicies);
+        Vector3[] hexagonCorners = new Vector3[7];
+
+        for (int i = 0; i <= 5; i++)
+        {
+            hexagonCorners[i] = GetPointyHexagonCorner(center, i);
+        }
+
+        hexagonCorners[6] = GetPointyHexagonCorner(center, 0);
+
+        Handles.color = linesColor;
+        Handles.DrawPolyLine(hexagonCorners);
+    }
+
+    Vector3 GetPointyHexagonCorner(Vector3 center, int i)
+    {
+        float angleDeg = 60 * i - 30;
+        float angleRad = angleDeg * Mathf.Deg2Rad;
+        return new Vector3(center.x + level.hexSize * Mathf.Cos(angleRad), center.y + level.hexSize * Mathf.Sin(angleRad), center.z);
     }
 
     void UpdateMouseOverGridTile(Vector3 mousePosition)
@@ -242,12 +253,6 @@ public class GridLevelEditor : Editor
             }
         }
         EditorGUILayout.EndVertical();
-
-        if (GUILayout.Button("Recalculate Grid Size"))
-        {
-            level.RecalculateGridSize();
-            level.RecalculatePositions();
-        }
 
         if (GUILayout.Button("Clear Grid"))
         {

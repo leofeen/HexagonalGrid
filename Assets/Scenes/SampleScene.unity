@@ -405,8 +405,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPlaneHeight: 0
-  maxCoordinateLinesDrawn: 180
-  standartGridObject: {fileID: 905607052}
+  numberOfHexesOnSide: 7
+  hexSize: 1
   avaibleObjects:
   - objectName: White Square
     prefab: {fileID: 905607052}
@@ -417,10 +417,8 @@ MonoBehaviour:
     offset: {x: 0, y: 0}
     overrideExisting: 1
   selectedIndex: 1
-  gridSize: {x: 1, y: 1}
   gridLinesColor: {r: 1, g: 1, b: 1, a: 0.5}
-  mouseOverFillColor: {r: 1, g: 1, b: 1, a: 0.2}
-  mouseOverOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mouseOverOutlineColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &966014285
 Transform:
   m_ObjectHideFlags: 0

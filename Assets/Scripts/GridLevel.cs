@@ -7,15 +7,13 @@ using UnityEngine;
 public class GridLevel : MonoBehaviour
 {
     public float gridPlaneHeight = 0;
-    public int maxCoordinateLinesDrawn = 20;
-    public GameObject standartGridObject;
+    public int numberOfHexesOnSide = 10;
+    public float hexSize = 1f;
     public List<GridObject> avaibleObjects = new List<GridObject>();
     [HideInInspector]
     public int selectedIndex = 0;
-    public Vector2 gridSize;
     public Color gridLinesColor = new Color(1, 1, 1, 0.5f);
-    public Color mouseOverFillColor = new Color(1, 1, 1, 0.2f);
-    public Color mouseOverOutlineColor = new Color(0, 0, 0);
+    public Color mouseOverOutlineColor = new Color(1, 0, 0);
     
     List<PlacedObject> placedObjects = new List<PlacedObject>();
 
@@ -33,14 +31,6 @@ public class GridLevel : MonoBehaviour
     public void RefreshPlacedObjectsList()
     {
         placedObjects = transform.GetComponentsInChildren<PlacedObject>().ToList<PlacedObject>();
-    }
-
-    public void RecalculateGridSize()
-    {
-        gridSize = new Vector2(
-            Mathf.Abs(standartGridObject.transform.localScale.x), 
-            Mathf.Abs(standartGridObject.transform.localScale.y)
-            );
     }
 
     public GameObject PlaceSelectedObject(Vector3 position)
@@ -127,18 +117,48 @@ public class GridLevel : MonoBehaviour
 
     public Vector2Int WorldPointToIndicies(Vector3 point)
     {
-        Vector3 shiftedPoint = point + 0.5f * gridSize.ToXY();
-        return new Vector2Int((int) Mathf.Floor(shiftedPoint.x / gridSize.x), (int) Mathf.Floor(shiftedPoint.y / gridSize.y));
+        float q = (Mathf.Sqrt(3) / 3f * point.x - 1f / 3f * point.y) / hexSize;
+        float r = (2f / 3f * point.y) / hexSize;
+        return RoundToIntIndicies(q, r);
+    }
+
+    public Vector2Int RoundToIntIndicies(float q, float r)
+    {
+        return RoundToIntIndicies(new Vector2(q, r));
+    }
+
+    public Vector2Int RoundToIntIndicies(Vector2 frac)
+    {
+        int q = Mathf.RoundToInt(frac.x);
+        int r = Mathf.RoundToInt(frac.y);
+        int s = Mathf.RoundToInt(-frac.x - frac.y);
+
+        float qDiff = Mathf.Abs(q - frac.x);
+        float rDiff = Mathf.Abs(r - frac.y);
+        float sDiff = Mathf.Abs(s + frac.x + frac.y);
+
+        if ((qDiff > rDiff) && (qDiff > sDiff))
+        {
+            q = -r - s;
+        }
+        else if (rDiff > sDiff)
+        {
+            r = -q - s;
+        }
+
+        return new Vector2Int(q, r);
     }
 
     public Vector3 IndiciesToWorldPoint(Vector2Int indicies)
     {
-        return new Vector3(indicies.x * gridSize.x, indicies.y * gridSize.y, gridPlaneHeight);
+        float x = hexSize * (Mathf.Sqrt(3) * indicies.x + Mathf.Sqrt(3) / 2f * indicies.y);
+        float y = hexSize * 3f / 2f * indicies.y;
+        return new Vector3(x, y, gridPlaneHeight);
     }
 
-    public Vector3 IndiciesToWorldPoint(int x, int y)
+    public Vector3 IndiciesToWorldPoint(int q, int r)
     {
-        return IndiciesToWorldPoint(new Vector2Int(x, y));
+        return IndiciesToWorldPoint(new Vector2Int(q, r));
     }
 
 
