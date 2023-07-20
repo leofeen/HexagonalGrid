@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4122565871070491909}
   - component: {fileID: 3757626138071398338}
+  - component: {fileID: 4636392517969854034}
   m_Layer: 0
   m_Name: Volcano Tile
   m_TagString: Untagged
@@ -84,3 +85,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4636392517969854034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708185775189271531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58aafe1a7e1212e419a668bb1266af51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSprite: {fileID: 21300000, guid: 7e895f50c2ff32542b6a019f31914e5a, type: 3}
+  secondSprite: {fileID: 21300000, guid: d3d0a5a9bf23680489ab6b02a3a6581e, type: 3}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9111652090864981935}
   - component: {fileID: 8313813738747204968}
+  - component: {fileID: -8973500156417181769}
   m_Layer: 0
   m_Name: Forest Tile
   m_TagString: Untagged
@@ -84,3 +85,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-8973500156417181769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7120248191908430145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58aafe1a7e1212e419a668bb1266af51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSprite: {fileID: 21300000, guid: e541354d4115e4c4c9cc6c62ae288f2a, type: 3}
+  secondSprite: {fileID: 21300000, guid: 832fa32bff2a58f4d8531828d2f0cde1, type: 3}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6729328363468286172}
   - component: {fileID: 5796395225257945627}
+  - component: {fileID: -341087645153553999}
   m_Layer: 0
   m_Name: Castle Tile
   m_TagString: Untagged
@@ -84,3 +85,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-341087645153553999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4737860691478642226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58aafe1a7e1212e419a668bb1266af51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSprite: {fileID: 21300000, guid: 6c91b71c09bb5fa4a9e10060bd98fa46, type: 3}
+  secondSprite: {fileID: 21300000, guid: 20b499f068276804b867d50c609cae62, type: 3}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6517450128542706142}
   - component: {fileID: 6296362808928201497}
+  - component: {fileID: 4680194166143184242}
   m_Layer: 0
   m_Name: Dangerous Water Tile
   m_TagString: Untagged
@@ -84,3 +85,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4680194166143184242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103001758620106544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58aafe1a7e1212e419a668bb1266af51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSprite: {fileID: 21300000, guid: ea75cd974cbc68e41a123f4374c93e1a, type: 3}
+  secondSprite: {fileID: 21300000, guid: 8f041d1aa4c458e46a9292a4936d61ad, type: 3}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2945971676059936790}
   - component: {fileID: 2734176870375615185}
+  - component: {fileID: -1818507958869253988}
   m_Layer: 0
   m_Name: Plains Tile
   m_TagString: Untagged
@@ -78,9 +79,23 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.8828125, y: 1}
+  m_Size: {x: 4.48, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-1818507958869253988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3765311576505597688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58aafe1a7e1212e419a668bb1266af51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSprite: {fileID: 21300000, guid: 726e336c1301f9443a48f52be2bf83f7, type: 3}
+  secondSprite: {fileID: 21300000, guid: 5f23d2858456d834ea5f0064d9014c7d, type: 3}

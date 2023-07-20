@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8790640088815541526}
   - component: {fileID: 8425441429346672593}
+  - component: {fileID: -4625288628939737306}
   m_Layer: 0
   m_Name: Desert Tile
   m_TagString: Untagged
@@ -84,3 +85,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-4625288628939737306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304139144828718072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58aafe1a7e1212e419a668bb1266af51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSprite: {fileID: 21300000, guid: 0ba1ef4fa7958f343955d57d046d77d5, type: 3}
+  secondSprite: {fileID: 21300000, guid: c86949c170d7c72479fb3eb00b99a62c, type: 3}

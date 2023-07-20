@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6799051227865422763}
   - component: {fileID: 6001217823486237036}
+  - component: {fileID: 766956886396827503}
   m_Layer: 0
   m_Name: Water Tile
   m_TagString: Untagged
@@ -84,3 +85,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &766956886396827503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4825666777834327365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58aafe1a7e1212e419a668bb1266af51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSprite: {fileID: 21300000, guid: 29b6a2b7a43e5b84f94098098cb8fe15, type: 3}
+  secondSprite: {fileID: 21300000, guid: cb0635f90d16d9d49b3c5a1816d42f42, type: 3}

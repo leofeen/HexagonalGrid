@@ -15,8 +15,8 @@ public class GridLevel : MonoBehaviour
     public int selectedIndex = 0;
     public Color gridLinesColor = new Color(1, 1, 1, 0.5f);
     public Color mouseOverOutlineColor = new Color(1, 0, 0);
-    
-    List<PlacedObject> placedObjects = new List<PlacedObject>();
+    [HideInInspector]
+    public List<PlacedObject> placedObjects = new List<PlacedObject>();
 
     public GridObject selectedObject {
         get {

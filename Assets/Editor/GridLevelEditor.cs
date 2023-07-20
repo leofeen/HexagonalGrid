@@ -259,9 +259,33 @@ public class GridLevelEditor : Editor
         
         EditorGUILayout.EndVertical();
 
+        if (level.GetComponent<IGridLevelExtention>() != null)
+        {
+            EditorGUILayout.BeginVertical(verticalBoxStyle);
+
+            IGridLevelExtention[] extentions = level.GetComponents<IGridLevelExtention>();
+
+            foreach (IGridLevelExtention extention in extentions)
+            {
+                ConstructExtentionGUI(extention);
+            }
+
+            EditorGUILayout.EndVertical();
+        }
+
         if (GUILayout.Button("Clear Grid"))
         {
             level.ClearGrid();
+        }
+    }
+
+    void ConstructExtentionGUI(IGridLevelExtention extention)
+    {
+        string name = extention.GetFunctionName();
+
+        if (GUILayout.Button(name))
+        {
+            extention.Execute();
         }
     }
 
