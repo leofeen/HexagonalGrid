@@ -22,6 +22,7 @@ public class WaveFunctionGridLevelExtention : MonoBehaviour, IGridLevelExtention
         foreach (var (indicies3D, stateName) in generatedMap)
         {
             Vector2Int indicies = new Vector2Int(indicies3D.x, indicies3D.y);
+            // Debug.Log(stateName);
             GridLevel.GridObject objectToPlace = level.avaibleObjects.First(x => x.objectName == stateName);
             level.PlaceObject(indicies, objectToPlace);
         }

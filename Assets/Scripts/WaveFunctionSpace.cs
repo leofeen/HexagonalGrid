@@ -5,9 +5,9 @@ using UnityEngine;
 public class WaveFunctionSpace
 {
     public int spaceSize;
-    public int numberOfSides;
+    public int numberOfSides => WaveFunctionCollapse.GetNumberOfSides(configuration);
 
-    public int numberOfCoordinates => numberOfSides / 2;
+    public int numberOfCoordinates => GetNumberOfCoordinates(configuration);
     public List<int> zero {
         get {
             if (_zero.Count != 0) return _zero;
@@ -20,11 +20,14 @@ public class WaveFunctionSpace
     
     List<WaveFunctionState> space;
     int spaceListSize;
+    bool isHexagonal;
+    SupportedSpaceConfigurations configuration;
 
-    public WaveFunctionSpace(int spaceSize, int numberOfSides)
+    public WaveFunctionSpace(int spaceSize, SupportedSpaceConfigurations configuration)
     {
         this.spaceSize = spaceSize;
-        this.numberOfSides = numberOfSides;
+        this.configuration = configuration;
+        this.isHexagonal = configuration == SupportedSpaceConfigurations.Hex2D;
 
         spaceListSize = Mathf.RoundToInt(Mathf.Pow(2*spaceSize + 1, numberOfCoordinates));
         space = new List<WaveFunctionState>();
@@ -51,19 +54,48 @@ public class WaveFunctionSpace
     {
         Dictionary<int, List<int>> result = new Dictionary<int, List<int>>();
 
-        for (int i = 0; i < numberOfSides; i++)
+        if (!isHexagonal)
         {
-            int coordinateNumber = i % numberOfCoordinates;
-            bool isNegative = i / numberOfCoordinates == 1;
+            for (int i = 0; i < numberOfSides; i++)
+            {
+                int coordinateNumber = i % numberOfCoordinates;
+                bool isNegative = i / numberOfCoordinates == 1;
 
-            int coordinateDelta = isNegative ? -1 : 1;
-            int newCoordinateValue = coordinates[coordinateNumber] + coordinateDelta;
+                int coordinateDelta = isNegative ? -1 : 1;
+                int newCoordinateValue = coordinates[coordinateNumber] + coordinateDelta;
 
-            if (Mathf.Abs(newCoordinateValue) > spaceSize) continue;
+                if (Mathf.Abs(newCoordinateValue) > spaceSize) continue;
 
-            List<int> copy = new List<int>(coordinates);
-            copy[coordinateNumber] = newCoordinateValue;
-            result[i] = copy;
+                List<int> copy = new List<int>(coordinates);
+                copy[coordinateNumber] = newCoordinateValue;
+                result[i] = copy;
+            }
+        }
+        else
+        {
+            List<int>[] hexDirections = new List<int>[]{
+                new List<int>(new int[]{1, 0}),
+                new List<int>(new int[]{0, 1}),
+                new List<int>(new int[]{-1, 1}),
+                new List<int>(new int[]{-1, 0}),
+                new List<int>(new int[]{0, -1}),
+                new List<int>(new int[]{1, -1}),
+            };
+            
+            for (int i = 0; i < 6; i++)
+            {
+                List<int> delta = hexDirections[i];
+                
+                int newQ = coordinates[0] + delta[0];
+                int newR = coordinates[1] + delta[1];
+
+                if (Mathf.Abs(newQ) > spaceSize || Mathf.Abs(newR) > spaceSize) continue;
+
+                List<int> copy = new List<int>(coordinates);
+                copy[0] = newQ;
+                copy[1] = newR;
+                result[i] = copy;
+            }
         }
 
         return result;
@@ -75,5 +107,14 @@ public class WaveFunctionSpace
         {
             space.Add(filler);
         }
+    }
+
+    static int GetNumberOfCoordinates(SupportedSpaceConfigurations configuration)
+    {
+        if (configuration == SupportedSpaceConfigurations.Square2D) return 2;
+        if (configuration == SupportedSpaceConfigurations.Square3D) return 3;
+        if (configuration == SupportedSpaceConfigurations.Hex2D) return 2;
+
+        return 0;
     }
 }

@@ -39,7 +39,7 @@ public class WaveFunctionView : GraphView
                 connections[j].ForEach(state => {
                     string targetGuid = state.GUID;
                     WaveFunctionStateNode targetNode = nodes.First(x => x.GUID == targetGuid);
-                    LinkNodes(nodes[i].outputContainer[j].Q<Port>(), targetNode.inputContainer[(j + target.numberOfSides / 2) % target.numberOfSides].Q<Port>());
+                    LinkNodes(nodes[i].outputContainer[j].Q<Port>(), targetNode.inputContainer[0].Q<Port>());
                 });
             }
         }
@@ -95,12 +95,11 @@ public class WaveFunctionView : GraphView
             outPort.portName = "Out, Side - " + i.ToString();
             outPort.name = i.ToString();
             node.outputContainer.Add(outPort);
-
-            Port inPort = GeneratePort(node, Direction.Input);
-            inPort.portName = "In, Side - " + i.ToString();
-            inPort.name = i.ToString();
-            node.inputContainer.Add(inPort);
         }
+
+        Port inPort = GeneratePort(node, Direction.Input);
+        inPort.portName = "Input";
+        node.inputContainer.Add(inPort);
 
         node.RefreshExpandedState();
         node.RefreshPorts();

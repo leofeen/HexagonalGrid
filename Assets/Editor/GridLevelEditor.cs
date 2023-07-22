@@ -159,6 +159,8 @@ public class GridLevelEditor : Editor
 
         DrawSelection();
 
+        // DrawHexagon(-1, 0, level.mouseOverOutlineColor);
+
         needsRepaint = false;
     }
 

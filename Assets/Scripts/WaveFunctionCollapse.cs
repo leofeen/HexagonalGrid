@@ -42,7 +42,7 @@ public class WaveFunctionCollapse : MonoBehaviour
     {  
         ClearNeighbourStates();
 
-        for (int i = 0; i < preset.nodeDatas.Count; i++)
+        for (int i = 0; i < avaibleStates.Count; i++)
         {
             WaveFunctionState currentState = avaibleStates[i];
 
@@ -53,10 +53,9 @@ public class WaveFunctionCollapse : MonoBehaviour
                 WaveFunctionState targetState = avaibleStates.First(x => x.GUID == targetGuid);
 
                 int currentSide = connections[j].baseNodePortSide;
-                int targetSide = connections[j].targetNodePortSide;
 
                 currentState.allowedNeighborStates[currentSide].Add(targetState);
-                targetState.allowedNeighborStates[targetSide].Add(currentState);
+                targetState.allowedNeighborStates[OppositeSide(currentSide)].Add(currentState);
             }
         }
 
@@ -87,7 +86,7 @@ public class WaveFunctionCollapse : MonoBehaviour
 
     void InitializeSpace()
     {
-        space = new WaveFunctionSpace(spaceSize, numberOfSides);
+        space = new WaveFunctionSpace(spaceSize, chosenConfiguration);
         space.FillWith(UndeterminedState);
     }
 
@@ -103,19 +102,12 @@ public class WaveFunctionCollapse : MonoBehaviour
 
     void CollapseAtPoints(List<List<int>> points)
     {
-        List<List<WaveFunctionState>> avaibleStatesForPoints = new List<List<WaveFunctionState>>();
-        List<int> entropy = new List<int>();
+        if (points.Count == 0) return;
 
-        points.ForEach(x => avaibleStatesForPoints.Add(GetAvaibleStatesAtPoint(x)));
-        avaibleStatesForPoints.ForEach(x => entropy.Add(x.Count));
-
-        points = points.OrderBy(x => entropy[points.IndexOf(x)]).ToList();
-        avaibleStatesForPoints = avaibleStatesForPoints.OrderBy(x => entropy[avaibleStatesForPoints.IndexOf(x)]).ToList();
-
-        for (int i = 0; i < points.Count; i++)
+        foreach (List<int> coordinates in points)
         {
-            CollapseAtPoint(points[i], avaibleStatesForPoints[i]);
-        }        
+            CollapseAtPoint(coordinates, GetAvaibleStatesAtPoint(coordinates));
+        }    
     }
 
     List<List<int>> GetAllNeighbours(List<List<int>> points)
@@ -135,13 +127,15 @@ public class WaveFunctionCollapse : MonoBehaviour
     {
         List<WaveFunctionState> result = new List<WaveFunctionState>(avaibleStates);
 
+        // Debug.Log(result.Intersect(avaibleStates[1].allowedNeighborStates[5]).ToList().Count);
+
         Dictionary<int, List<int>> neighbours = space.GetNeighbours(coordinates);
         foreach (int i in neighbours.Keys)
         {
             WaveFunctionState neighbourState = space[neighbours[i]];
             List<WaveFunctionState> allowedNeighboursForNeighbourState = (neighbourState == UndeterminedState) 
                 ? avaibleStates 
-                : neighbourState.allowedNeighborStates.GetValueOrDefault((i + space.numberOfCoordinates) % numberOfSides, avaibleStates);
+                : neighbourState.allowedNeighborStates.GetValueOrDefault(OppositeSide(i), avaibleStates);
 
             result = result.Intersect(allowedNeighboursForNeighbourState).ToList();
         }
@@ -199,20 +193,7 @@ public class WaveFunctionCollapse : MonoBehaviour
             previouslyChecked.AddRange(uncheckedCoordinates);
         }
 
-        return CleanseInvalidCoordinates(result);
-    }
-
-    public Dictionary<Vector3Int, string> CleanseInvalidCoordinates(Dictionary<Vector3Int, string> uncleansed)
-    {
-        if (!(chosenConfiguration == SupportedSpaceConfigurations.Hex2D)) return uncleansed;
-
-        Dictionary<Vector3Int, string> cleansed = new Dictionary<Vector3Int, string>();
-        foreach (var (indicies, stateName) in uncleansed)
-        {
-            if (indicies.x + indicies.y + indicies.z == 0) cleansed[indicies] = stateName;
-        }
-
-        return cleansed;
+        return result;
     }
 
     public static List<List<int>> SubtractListCoordinates(List<List<int>> first, List<List<int>> second)
@@ -230,6 +211,11 @@ public class WaveFunctionCollapse : MonoBehaviour
         return result;
     }
 
+    public int OppositeSide(int i)
+    {
+        return (i + numberOfSides / 2) % numberOfSides;
+    }
+
     public static int GetNumberOfSides(SupportedSpaceConfigurations configuration)
     {
         if (configuration == SupportedSpaceConfigurations.Square2D) return 4;
@@ -238,12 +224,12 @@ public class WaveFunctionCollapse : MonoBehaviour
 
         return 0;
     }
+}
 
 
-    public enum SupportedSpaceConfigurations
-    {
-        Square2D,
-        Square3D,
-        Hex2D,
-    }
+public enum SupportedSpaceConfigurations
+{
+    Square2D,
+    Square3D,
+    Hex2D,
 }

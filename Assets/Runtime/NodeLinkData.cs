@@ -8,5 +8,4 @@ public class NodeLinkData
     public string baseNodeGUID;
     public int baseNodePortSide;
     public string targetNodeGUID;
-    public int targetNodePortSide;
 }

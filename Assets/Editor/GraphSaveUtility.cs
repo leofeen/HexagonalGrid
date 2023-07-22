@@ -37,7 +37,6 @@ public class GraphSaveUtility
                 baseNodeGUID = outputNode.GUID,
                 baseNodePortSide = int.Parse(connectedEdges[i].output.name),
                 targetNodeGUID = inputNode.GUID,
-                targetNodePortSide = int.Parse(connectedEdges[i].input.name),
             });
         }
 
@@ -109,7 +108,7 @@ public class GraphSaveUtility
                 string targetGuid = connections[j].targetNodeGUID;
                 WaveFunctionStateNode targetNode = nodes.First(x => x.GUID == targetGuid);
 
-                LinkNodes(nodes[i].outputContainer[connections[j].baseNodePortSide].Q<Port>(), targetNode.inputContainer.Q<Port>(connections[j].targetNodePortSide.ToString()));
+                LinkNodes(nodes[i].outputContainer[connections[j].baseNodePortSide].Q<Port>(), targetNode.inputContainer.Q<Port>());
             }
         }
     }
