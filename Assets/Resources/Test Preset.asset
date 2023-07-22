@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62bee620717fbcb46b43dffb7822dbb1, type: 3}
+  m_Name: Test Preset
+  m_EditorClassIdentifier: 
+  nodeLinkDatas:
+  - baseNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    baseNodePortSide: 0
+    targetNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    targetNodePortSide: 3
+  - baseNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    baseNodePortSide: 1
+    targetNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    targetNodePortSide: 4
+  - baseNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    baseNodePortSide: 2
+    targetNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    targetNodePortSide: 5
+  - baseNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    baseNodePortSide: 3
+    targetNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    targetNodePortSide: 0
+  - baseNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    baseNodePortSide: 4
+    targetNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    targetNodePortSide: 1
+  - baseNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    baseNodePortSide: 5
+    targetNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    targetNodePortSide: 2
+  - baseNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    baseNodePortSide: 0
+    targetNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    targetNodePortSide: 3
+  - baseNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    baseNodePortSide: 1
+    targetNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    targetNodePortSide: 4
+  - baseNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    baseNodePortSide: 2
+    targetNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    targetNodePortSide: 5
+  - baseNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    baseNodePortSide: 3
+    targetNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    targetNodePortSide: 0
+  - baseNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    baseNodePortSide: 4
+    targetNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    targetNodePortSide: 1
+  - baseNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    baseNodePortSide: 5
+    targetNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    targetNodePortSide: 2
+  - baseNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    baseNodePortSide: 0
+    targetNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    targetNodePortSide: 3
+  - baseNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    baseNodePortSide: 1
+    targetNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    targetNodePortSide: 4
+  - baseNodeGUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    baseNodePortSide: 5
+    targetNodeGUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    targetNodePortSide: 2
+  nodeDatas:
+  - GUID: 0a4e87d9-4cde-4272-b78c-b6a00bac21ec
+    position: {x: 586.4, y: 110.399994}
+    referenceState: {fileID: 11400000, guid: 0143c1ddb37eef84aa5ce9e8963ab4b9, type: 2}
+  - GUID: d0437952-502e-4ef0-8a5a-6f25fdedae86
+    position: {x: 154.4, y: 110.399994}
+    referenceState: {fileID: 11400000, guid: 3c5c2986f851210409c79dbb29dc24d2, type: 2}

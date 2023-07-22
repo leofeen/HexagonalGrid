@@ -241,7 +241,6 @@ public class GridLevelEditor : Editor
         {
             string selectedObjectText = level.avaibleObjects[level.selectedIndex].objectName == "" ? level.avaibleObjects[level.selectedIndex].prefab.name : level.avaibleObjects[level.selectedIndex].objectName;
             GUILayout.Label($"Выбранный элемент: {selectedObjectText}");
-        
 
             GUILayout.Space(10);
 
