@@ -19,11 +19,12 @@ public class MapSaveUtility
 
         MapData mapData = ScriptableObject.CreateInstance<MapData>();
 
-        mapData.avaibleObjects = new List<GridLevel.GridObject>(target.avaibleObjects);
+        mapData.avaibleObjects = new List<GridLevel.GridObject>(target.avaibleObjects);  
 
         foreach (PlacedObject placedObject in target.placedObjects)
         {
-            mapData.placedObjects[placedObject.indiciesOnGrid] = placedObject.id;
+            mapData.indicies.Add(placedObject.indiciesOnGrid);
+            mapData.placedObjects.Add(placedObject.objectName);
         }
 
         if (!AssetDatabase.IsValidFolder("Assets/Resources")) AssetDatabase.CreateFolder("Assets", "Resources");
@@ -49,10 +50,10 @@ public class MapSaveUtility
 
     void PlaceObjects(MapData mapData)
     {
-        foreach (var (objectIndicies, objectId) in mapData.placedObjects)
+        for (int i = 0; i < mapData.indicies.Count; i++)
         {
-            GridLevel.GridObject objectToPlace = mapData.avaibleObjects.First(x => x.id == objectId);
-            target.PlaceObject(objectIndicies, objectToPlace);
+            GridLevel.GridObject objectToPlace = mapData.avaibleObjects.First(x => x.objectName == mapData.placedObjects[i]);
+            target.PlaceObject(mapData.indicies[i], objectToPlace);
         }
     }
 }

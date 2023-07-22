@@ -9,7 +9,7 @@ public class PlacedObject : MonoBehaviour
     [HideInInspector]
     public Vector2Int indiciesOnGrid;
     [HideInInspector]
-    public int associatedGridObjectIndex;
+    public string objectName;
 
     public Vector2 perObjectOffset = Vector2.zero;
 

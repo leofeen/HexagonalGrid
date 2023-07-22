@@ -10,14 +10,46 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e600ae4797a742247882d0fe065144ea, type: 3}
-  m_Name: Test Map
+  m_Name: Test map
   m_EditorClassIdentifier: 
   avaibleObjects:
-  - objectName: First
+  - objectName: Plains
     prefab: {fileID: 3765311576505597688, guid: a0234fa792d580946855bfdfd35910f1, type: 3}
     offset: {x: 0, y: 0}
     overrideExisting: 1
-  - objectName: Second
+  - objectName: Water
     prefab: {fileID: 4825666777834327365, guid: 7169c84a877f05e48b640673b2a2a2d5, type: 3}
+    offset: {x: 0, y: 0}
+    overrideExisting: 1
+  - objectName: Forest
+    prefab: {fileID: 7120248191908430145, guid: 402ffd1b5356fff4089836bc3c49d3e4, type: 3}
+    offset: {x: 0, y: 0}
+    overrideExisting: 1
+  - objectName: Desert
+    prefab: {fileID: 7304139144828718072, guid: e3cd00ac6f8fecc418d73f0269e38c99, type: 3}
+    offset: {x: 0, y: 0}
+    overrideExisting: 1
+  - objectName: ' Mountains'
+    prefab: {fileID: 5201388788174791447, guid: 7b8ea5d3e97c21446ac3b85e0b651af0, type: 3}
+    offset: {x: 0, y: 0}
+    overrideExisting: 1
+  - objectName: Swamp
+    prefab: {fileID: 7442698281066224070, guid: 9ffc6a95c7c68794ab803ae6186d433a, type: 3}
+    offset: {x: 0, y: 0}
+    overrideExisting: 1
+  - objectName: Castle
+    prefab: {fileID: 4737860691478642226, guid: 3fbeb29f780ef4644acce5e44a1e7b05, type: 3}
+    offset: {x: 0, y: 0}
+    overrideExisting: 1
+  - objectName: Home
+    prefab: {fileID: 6371352855175382617, guid: 97ba14d04c4d4c54d89896fefb691089, type: 3}
+    offset: {x: 0, y: 0}
+    overrideExisting: 1
+  - objectName: Dangerous Water
+    prefab: {fileID: 5103001758620106544, guid: 5454b1de464edbe488498176b0f7ca47, type: 3}
+    offset: {x: 0, y: 0}
+    overrideExisting: 1
+  - objectName: Volcano
+    prefab: {fileID: 2708185775189271531, guid: 608fc31f69a891c4bb32e7cb12d66558, type: 3}
     offset: {x: 0, y: 0}
     overrideExisting: 1

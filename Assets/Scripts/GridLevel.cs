@@ -59,7 +59,7 @@ public class GridLevel : MonoBehaviour
         PlacedObject newPlacedObject = instanceGO.AddComponent<PlacedObject>() as PlacedObject;
         newPlacedObject.id = objectToPlace.id;
         newPlacedObject.indiciesOnGrid = indicies;
-        newPlacedObject.associatedGridObjectIndex = selectedIndex;
+        newPlacedObject.objectName = objectToPlace.objectName;
         placedObjects.Add(newPlacedObject);
 
         return instanceGO;
@@ -115,7 +115,7 @@ public class GridLevel : MonoBehaviour
     {
         foreach (PlacedObject placedObject in placedObjects)
         {
-            GridObject associatedGridObject = avaibleObjects[placedObject.associatedGridObjectIndex];
+            GridObject associatedGridObject = avaibleObjects.First(x => x.objectName == placedObject.objectName);
 
             Vector3 newPosition = IndiciesToWorldPoint(placedObject.indiciesOnGrid) + associatedGridObject.offset.ToXY();
             placedObject.position = newPosition;
