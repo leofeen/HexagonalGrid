@@ -15,7 +15,7 @@ public class PlacedObject : MonoBehaviour
 
     public Vector3 position {
         get {
-            if (_position is null)
+            if (_position == null)
             {
                 _position = transform.position;
             }
@@ -32,7 +32,7 @@ public class PlacedObject : MonoBehaviour
 
     public void UpdateOffset()
     {
-        if (_position is null)
+        if (_position == null)
         {
             _position = transform.position;
         }

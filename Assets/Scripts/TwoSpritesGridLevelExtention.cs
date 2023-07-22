@@ -9,7 +9,7 @@ public class TwoSpritesGridLevelExtention : MonoBehaviour, IGridLevelExtention
 
     public void Execute()
     {
-        if (level is null) level = GetComponent<GridLevel>();
+        if (level == null) level = GetComponent<GridLevel>();
 
         foreach (PlacedObject placedObject in level.placedObjects)
         {

@@ -277,6 +277,40 @@ public class GridLevelEditor : Editor
         {
             level.ClearGrid();
         }
+
+        EditorGUILayout.BeginVertical(verticalBoxStyle);
+
+        if (GUILayout.Button("Save Map"))
+        {
+            RequestDataOperation(true);
+        }
+
+        if (GUILayout.Button("Load Map"))
+        {
+            RequestDataOperation(false);
+        }
+
+        EditorGUILayout.EndVertical();
+    }
+
+    void RequestDataOperation(bool save)
+    {
+        if (string.IsNullOrEmpty(level.mapName))
+        {
+            EditorUtility.DisplayDialog("Incorrect map name", "Please, enter valid map name", "OK");
+            return;
+        }
+
+        MapSaveUtility saveUtility = MapSaveUtility.GetInstance(level);
+
+        if (save)
+        {
+            saveUtility.SaveMap(level.mapName);
+        }
+        else
+        {
+            saveUtility.LoadMap(level.mapName);
+        }
     }
 
     void ConstructExtentionGUI(IGridLevelExtention extention)

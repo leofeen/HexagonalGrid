@@ -6,6 +6,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class GridLevel : MonoBehaviour
 {
+    public string mapName = "New Map";
     public float gridPlaneHeight = 0;
     public int numberOfHexesOnSide = 10;
     public float hexSize = 1f;
@@ -18,12 +19,6 @@ public class GridLevel : MonoBehaviour
     [HideInInspector]
     public List<PlacedObject> placedObjects = new List<PlacedObject>();
 
-    public GridObject selectedObject {
-        get {
-            return avaibleObjects[selectedIndex];
-        }
-    }
-
     void OnEnable()
     {
         RefreshPlacedObjectsList();
@@ -34,24 +29,19 @@ public class GridLevel : MonoBehaviour
         placedObjects = transform.GetComponentsInChildren<PlacedObject>().ToList<PlacedObject>();
     }
 
-    public GameObject PlaceSelectedObject(Vector3 position)
+    public GameObject PlaceObject(Vector2Int indicies, GridObject objectToPlace)
     {
-        Vector2Int indicies = WorldPointToIndicies(position);
-        return PlaceSelectedObject(indicies);
-    }
-    public GameObject PlaceSelectedObject(Vector2Int indicies)
-    {     
         List<PlacedObject> toRemove = new List<PlacedObject>();
         foreach (PlacedObject placedObject in placedObjects)
         {
             if (placedObject.indiciesOnGrid == indicies)
             {
-                if (selectedObject.overrideExisting)
+                if (objectToPlace.overrideExisting)
                 {
                     UnityEditor.Undo.DestroyObjectImmediate(placedObject.gameObject);
                     toRemove.Add(placedObject);
                 }
-                else if (placedObject.id == selectedObject.id)
+                else if (placedObject.id == objectToPlace.id)
                 {
                     return placedObject.gameObject;
                 }      
@@ -63,16 +53,33 @@ public class GridLevel : MonoBehaviour
             placedObjects.Remove(obj);
         }
 
-        Vector3 positionOnGrid = IndiciesToWorldPoint(indicies) + selectedObject.offset.ToXY();
-        GameObject instanceGO = Instantiate<GameObject>(selectedObject.prefab, positionOnGrid, Quaternion.identity, transform);
+        Vector3 positionOnGrid = IndiciesToWorldPoint(indicies) + objectToPlace.offset.ToXY();
+        GameObject instanceGO = Instantiate<GameObject>(objectToPlace.prefab, positionOnGrid, Quaternion.identity, transform);
 
         PlacedObject newPlacedObject = instanceGO.AddComponent<PlacedObject>() as PlacedObject;
-        newPlacedObject.id = selectedObject.id;
+        newPlacedObject.id = objectToPlace.id;
         newPlacedObject.indiciesOnGrid = indicies;
         newPlacedObject.associatedGridObjectIndex = selectedIndex;
         placedObjects.Add(newPlacedObject);
 
         return instanceGO;
+    }
+
+    public GameObject PlaceObject(Vector3 position, GridObject objectToPlace)
+    {
+        Vector2Int indicies = WorldPointToIndicies(position);
+        return PlaceObject(indicies, objectToPlace);
+    }
+
+    public GameObject PlaceSelectedObject(Vector3 position)
+    {
+        Vector2Int indicies = WorldPointToIndicies(position);
+        return PlaceSelectedObject(indicies);
+    }
+
+    public GameObject PlaceSelectedObject(Vector2Int indicies)
+    {     
+        return PlaceObject(indicies, avaibleObjects[selectedIndex]);
     }
 
     public void ClearGrid()
@@ -93,7 +100,6 @@ public class GridLevel : MonoBehaviour
 
     public void DeleteObject(Vector2Int indicies)
     {
-        
         for (int i = 0; i < placedObjects.Count; i++)
         {
             if (placedObjects[i].indiciesOnGrid == indicies)

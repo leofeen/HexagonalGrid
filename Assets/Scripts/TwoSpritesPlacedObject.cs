@@ -11,7 +11,8 @@ public class TwoSpritesPlacedObject : MonoBehaviour
     
     public void ChangeSprite()
     {
-        if (spriteRenderer is null) spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+        // Debug.Log(spriteRenderer);
 
         if (isSecond)
         {
