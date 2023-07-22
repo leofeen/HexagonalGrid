@@ -6249,7 +6249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapName: Precasia
   gridPlaneHeight: 0
-  numberOfHexesOnSide: 10
+  numberOfHexesOnSide: 16
   hexSize: 1
   showChosenElement: 1
   avaibleObjects:
