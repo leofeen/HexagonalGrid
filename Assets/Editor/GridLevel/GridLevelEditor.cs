@@ -263,6 +263,8 @@ public class GridLevelEditor : Editor
         if (level.GetComponent<IGridLevelExtention>() != null)
         {
             EditorGUILayout.BeginVertical(verticalBoxStyle);
+            
+            GUILayout.Label("Использовать расширения:");
 
             IGridLevelExtention[] extentions = level.GetComponents<IGridLevelExtention>();
 
